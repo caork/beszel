@@ -96,6 +96,45 @@ export function GpuPowerChart({
 	)
 }
 
+/** CPU package power chart (RAPL) for the main grid */
+export function CpuPowerChart({
+	chartData,
+	grid,
+	dataEmpty,
+}: {
+	chartData: ChartData
+	grid: boolean
+	dataEmpty: boolean
+}) {
+	const dataPoints = useMemo(
+		(): DataPoint[] => [
+			{
+				label: "CPU",
+				dataKey: (data: SystemStatsRecord) => data.stats?.cpw,
+				color: "hsl(32, 90%, 52%)",
+				opacity: 1,
+			},
+		],
+		[]
+	)
+
+	return (
+		<ChartCard
+			empty={dataEmpty}
+			grid={grid}
+			title={t`CPU Power Draw`}
+			description={t`Average power consumption of CPU packages`}
+		>
+			<LineChartDefault
+				chartData={chartData}
+				dataPoints={dataPoints}
+				tickFormatter={(val) => `${toFixedFloat(val, 2)}W`}
+				contentFormatter={({ value }) => `${decimalString(value)}W`}
+			/>
+		</ChartCard>
+	)
+}
+
 /** GPU charts: summary grid (optional power-draw slot + engines) above a per-GPU usage/VRAM grid. Separate
  *  grids keep each GPU's usage and VRAM cards paired, while odd:last-of-type stretches a lone summary card */
 export function GpuCharts({

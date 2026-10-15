@@ -78,6 +78,10 @@ export interface SystemInfo {
 	p?: boolean
 	/** highest gpu utilization */
 	g?: number
+	/** CPU package power in watts (RAPL) */
+	cpw?: number
+	/** summed discrete GPU power in watts */
+	gpw?: number
 	/** dashboard display temperature */
 	dt?: number
 	/** operating system */
@@ -159,6 +163,8 @@ export interface SystemStats {
 	t?: Record<string, number>
 	/** fan speeds (RPM) — keyed by `<chip>_<label-or-fan-idx>` */
 	f?: Record<string, number>
+	/** CPU package power in watts (RAPL) */
+	cpw?: number
 	/** extra filesystems */
 	efs?: Record<string, ExtraFsStats>
 	/** ZFS pool metrics */

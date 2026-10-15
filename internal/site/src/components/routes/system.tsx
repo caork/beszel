@@ -13,7 +13,7 @@ import { ZfsCharts } from "./system/charts/storage-pool-charts"
 import { BandwidthChart, ContainerNetworkChart } from "./system/charts/network-charts"
 import { TemperatureChart, FanChart, BatteryChart } from "./system/charts/sensor-charts"
 import { WiFiChart } from "./system/charts/wifi-chart"
-import { GpuPowerChart, GpuCharts } from "./system/charts/gpu-charts"
+import { CpuPowerChart, GpuPowerChart, GpuCharts } from "./system/charts/gpu-charts"
 import {
 	LazyContainersTable,
 	LazyNetworkMonitorsTable,
@@ -58,6 +58,7 @@ export default memo(function SystemDetail({ id }: { id: string }) {
 		hasGpuData,
 		hasGpuEnginesData,
 		hasGpuPowerData,
+		hasCpuPowerData,
 	} = systemData
 
 	// extra margin to add to bottom of page, specifically for temperature chart,
@@ -143,6 +144,7 @@ export default memo(function SystemDetail({ id }: { id: string }) {
 					<BatteryChart system={system} {...coreProps} />
 					<WiFiChart system={system} {...coreProps} />
 
+					{hasCpuPowerData && <CpuPowerChart chartData={chartData} grid={grid} dataEmpty={dataEmpty} />}
 					{hasGpuPowerData && <GpuPowerChart chartData={chartData} grid={grid} dataEmpty={dataEmpty} />}
 				</div>
 
@@ -225,6 +227,7 @@ export default memo(function SystemDetail({ id }: { id: string }) {
 						<SwapChart chartData={chartData} grid={grid} dataEmpty={dataEmpty} systemStats={systemStats} />
 						<TemperatureChart {...coreProps} setPageBottomExtraMargin={setPageBottomExtraMargin} />
 						<FanChart {...coreProps} />
+						{hasCpuPowerData && <CpuPowerChart chartData={chartData} grid={grid} dataEmpty={dataEmpty} />}
 						<BatteryChart system={system} {...coreProps} />
 						{pageBottomExtraMargin > 0 && <div style={{ marginBottom: pageBottomExtraMargin }}></div>}
 					</div>

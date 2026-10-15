@@ -44,6 +44,7 @@ type Agent struct {
 	tempsReading              atomic.Bool                                           // A temperature read is still running (possibly blocked in the kernel)
 	fansReading               atomic.Bool                                           // A fan read is still running (possibly blocked in the kernel)
 	systemInfo                system.Info                                           // Host system info (dynamic)
+	raplSamples               map[uint16]raplSample                                 // Last RAPL energy reading per cache interval
 	systemDetails             system.Details                                        // Host system details (static, once-per-connection)
 	detailsDirty              bool                                                  // Whether system details have changed and need to be resent
 	gpuManager                *GPUManager                                           // Manages GPU data

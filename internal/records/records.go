@@ -307,6 +307,7 @@ func AverageSystemStatsSlice(records []system.Stats) system.Stats {
 		}
 
 		sum.Cpu += stats.Cpu
+		sum.CpuPower += stats.CpuPower
 		// accumulate cpu time breakdowns if present
 		if stats.CpuBreakdown != nil {
 			if len(cpuBreakdownSums) < len(stats.CpuBreakdown) {
@@ -507,6 +508,7 @@ func AverageSystemStatsSlice(records []system.Stats) system.Stats {
 	for i := range sum.MemBytes {
 		sum.MemBytes[i] = sum.MemBytes[i] / uint64(count)
 	}
+	sum.CpuPower = twoDecimals(sum.CpuPower / count)
 	sum.MemPct = twoDecimals(sum.MemPct / count)
 	sum.SwapBytes[0] = sum.SwapBytes[0] / uint64(count)
 	sum.SwapBytes[1] = sum.SwapBytes[1] / uint64(count)

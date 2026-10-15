@@ -345,6 +345,8 @@ export function useSystemData(id: string) {
 	let hasGpuEnginesData = false
 	let hasGpuPowerData = false
 
+	const hasCpuPowerData = systemStats.some((record) => record.stats?.cpw !== undefined)
+
 	if (lastGpus) {
 		hasGpuData = Object.keys(lastGpus).length > 0
 		for (let i = 0; i < systemStats.length && (!hasGpuEnginesData || !hasGpuPowerData); i++) {
@@ -386,5 +388,6 @@ export function useSystemData(id: string) {
 		hasGpuData,
 		hasGpuEnginesData,
 		hasGpuPowerData,
+		hasCpuPowerData,
 	}
 }
