@@ -22,6 +22,7 @@ import {
 	TerminalSquareIcon,
 	Trash2Icon,
 	WifiIcon,
+	ZapIcon,
 } from "lucide-react"
 import { memo, useMemo, useRef, useState } from "react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
@@ -38,6 +39,7 @@ import {
 	secondsToUptimeString,
 } from "@/lib/utils"
 import { batteryStateTranslations } from "@/lib/i18n"
+import { formatWatts, systemPower } from "@/lib/power"
 import { connectedWiFi, strongestWiFi, strongestWiFiSignal, wifiSignalState } from "@/lib/wifi"
 import type { SystemRecord, WiFi } from "@/types"
 import { SystemDialog } from "../add-system"
@@ -218,6 +220,51 @@ export function SystemsTableColumns(viewMode: "table" | "grid"): ColumnDef<Syste
 			},
 			Icon: GpuIcon,
 			header: sortableHeader,
+		},
+		{
+			accessorFn: ({ info, status }) => (status !== SystemStatus.Up ? undefined : systemPower(info)),
+			id: "power",
+			name: () => t({ message: "Power", comment: "Short label for measured power draw in systems table" }),
+			size: 0,
+			Icon: ZapIcon,
+			header: sortableHeader,
+			sortUndefined: "last",
+			cell(info) {
+				const val = info.getValue() as number | undefined
+				if (val === undefined) {
+					return null
+				}
+				const { cpw, gpw } = info.row.original.info
+				return (
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<Link
+								href={getPagePath($router, "system", { id: info.row.original.id })}
+								tabIndex={-1}
+								className="tabular-nums whitespace-nowrap relative z-10"
+							>
+								{formatWatts(val)}
+							</Link>
+						</TooltipTrigger>
+						<TooltipContent side="right" className="text-xs">
+							<div className="grid grid-cols-[auto_auto] gap-x-3 gap-y-0.5 tabular-nums">
+								{cpw !== undefined && (
+									<>
+										<span className="text-muted-foreground">CPU</span>
+										<span className="text-end">{formatWatts(cpw)}</span>
+									</>
+								)}
+								{gpw !== undefined && (
+									<>
+										<span className="text-muted-foreground">GPU</span>
+										<span className="text-end">{formatWatts(gpw)}</span>
+									</>
+								)}
+							</div>
+						</TooltipContent>
+					</Tooltip>
+				)
+			},
 		},
 		{
 			id: "loadAverage",

@@ -272,6 +272,9 @@ func (a *Agent) getSystemStats(cacheTimeMs uint16) system.Stats {
 		}
 	}
 
+	// CPU package power (RAPL) and dashboard power totals; needs GPU data above
+	a.updatePower(cacheTimeMs, &systemStats)
+
 	// Wi-Fi collection spawns a process on macOS and dumps the BSS cache on
 	// Linux, so only refresh on the default interval. Real-time requests reuse
 	// the last snapshot.

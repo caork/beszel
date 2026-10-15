@@ -39,6 +39,7 @@ type Agent struct {
 	dockerManager             *dockerManager                                        // Manages Docker API requests
 	sensorConfig              *SensorConfig                                         // Sensors config
 	systemInfo                system.Info                                           // Host system info (dynamic)
+	raplSamples               map[uint16]raplSample                                 // Last RAPL energy reading per cache interval
 	systemDetails             system.Details                                        // Host system details (static, once-per-connection)
 	detailsDirty              bool                                                  // Whether system details have changed and need to be resent
 	gpuManager                *GPUManager                                           // Manages GPU data

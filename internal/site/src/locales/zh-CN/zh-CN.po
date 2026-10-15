@@ -273,6 +273,10 @@ msgid "Average number of I/O operations waiting to be serviced"
 msgstr "等待处理的 I/O 操作平均数量"
 
 #: src/components/routes/system/charts/gpu-charts.tsx
+msgid "Average power consumption of CPU packages"
+msgstr "CPU 封装的平均功耗"
+
+#: src/components/routes/system/charts/gpu-charts.tsx
 msgid "Average power consumption of GPUs"
 msgstr "GPU 平均能耗"
 
@@ -665,6 +669,10 @@ msgstr "CPU I/O 等待时间 (IOWait)"
 #: src/components/systemd-table/systemd-table-columns.tsx
 msgid "CPU Peak"
 msgstr "CPU 峰值"
+
+#: src/components/routes/system/charts/gpu-charts.tsx
+msgid "CPU Power Draw"
+msgstr "CPU 功耗"
 
 #: src/lib/alerts.ts
 msgid "CPU Steal Time"
@@ -1327,6 +1335,10 @@ msgstr "1分钟内最大值"
 msgid "Max 1h"
 msgstr "1 小时最大"
 
+#: src/components/systems-table/systems-table.tsx
+msgid "Measured CPU package and GPU power across {poweredSystems} systems. Excludes PSU loss, drives and other components."
+msgstr "{poweredSystems} 台系统实测的 CPU 封装与 GPU 功耗之和，不含电源损耗、硬盘等其它部件。"
+
 #: src/components/containers-table/containers-table-columns.tsx
 #: src/components/routes/system/info-bar.tsx
 #: src/components/systemd-table/systemd-table-columns.tsx
@@ -1701,6 +1713,11 @@ msgstr "端口"
 msgctxt "Container ports"
 msgid "Ports"
 msgstr "端口"
+
+#. Short label for measured power draw in systems table
+#: src/components/systems-table/systems-table-columns.tsx
+msgid "Power"
+msgstr "功耗"
 
 #. Power On Time
 #: src/components/routes/system/smart-table.tsx
@@ -2231,6 +2248,10 @@ msgstr "每个接口的总接收数据量"
 #: src/components/routes/system/network-sheet.tsx
 msgid "Total data sent for each interface"
 msgstr "每个接口的总发送数据量"
+
+#: src/components/systems-table/systems-table.tsx
+msgid "Total power"
+msgstr "总功耗"
 
 #: src/components/routes/system/disk-io-sheet.tsx
 msgctxt "Disk I/O"

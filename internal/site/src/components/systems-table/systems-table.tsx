@@ -27,6 +27,7 @@ import {
 	LayoutListIcon,
 	Settings2Icon,
 	XIcon,
+	ZapIcon,
 } from "lucide-react"
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -46,11 +47,13 @@ import { TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/compon
 import { SystemStatus } from "@/lib/enums"
 import { queueUserSettings } from "@/lib/api"
 import { $downSystems, $pausedSystems, $systems, $upSystems, $userSettings } from "@/lib/stores"
+import { formatWatts, systemPower } from "@/lib/power"
 import { cn, runOnce } from "@/lib/utils"
 import type { SystemRecord } from "@/types"
 import AlertButton from "../alerts/alert-button"
 import { $router, Link } from "../router"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import { SystemsTableColumns, ActionsButton, IndicatorDot } from "./systems-table-columns"
 
 type ViewMode = "table" | "grid"
@@ -206,13 +209,58 @@ export default function SystemsTable() {
 		return [Object.values(upSystems).length, Object.values(downSystems).length, Object.values(pausedSystems).length]
 	}, [upSystems, downSystems, pausedSystems])
 
+	// Sum of measurable power (CPU package + discrete GPUs) across systems that are up
+	const [totalPower, totalCpuPower, totalGpuPower, poweredSystems] = useMemo(() => {
+		let total = 0
+		let cpu = 0
+		let gpu = 0
+		let count = 0
+		for (const system of data) {
+			if (system.status !== SystemStatus.Up) continue
+			const power = systemPower(system.info)
+			if (power === undefined) continue
+			total += power
+			cpu += system.info.cpw ?? 0
+			gpu += system.info.gpw ?? 0
+			count++
+		}
+		return [total, cpu, gpu, count]
+	}, [data])
+
 	const CardHead = useMemo(() => {
 		return (
 			<CardHeader className="p-0 mb-3 sm:mb-4">
 				<div className="grid md:flex gap-x-5 gap-y-3 w-full items-end">
 					<div className="px-2 sm:px-1">
-						<CardTitle className="mb-2">
+						<CardTitle className="mb-2 flex items-center gap-3">
 							<Trans>All Systems</Trans>
+							{poweredSystems > 0 && (
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<span className="inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-sm font-medium tabular-nums text-muted-foreground">
+											<ZapIcon className="size-3.5 text-yellow-500" />
+											{formatWatts(totalPower)}
+										</span>
+									</TooltipTrigger>
+									<TooltipContent className="text-xs">
+										<div className="font-medium mb-1">
+											<Trans>Total power</Trans>
+										</div>
+										<div className="grid grid-cols-[auto_auto] gap-x-3 gap-y-0.5 tabular-nums">
+											<span className="text-muted-foreground">CPU</span>
+											<span className="text-end">{formatWatts(totalCpuPower)}</span>
+											<span className="text-muted-foreground">GPU</span>
+											<span className="text-end">{formatWatts(totalGpuPower)}</span>
+										</div>
+										<div className="mt-1 text-muted-foreground max-w-56">
+											<Trans>
+												Measured CPU package and GPU power across {poweredSystems} systems. Excludes PSU loss, drives
+												and other components.
+											</Trans>
+										</div>
+									</TooltipContent>
+								</Tooltip>
+							)}
 						</CardTitle>
 						<CardDescription className="flex">
 							<Trans>Click on a system to view more information.</Trans>
@@ -370,6 +418,8 @@ export default function SystemsTable() {
 		upSystemsLength,
 		downSystemsLength,
 		pausedSystemsLength,
+		totalPower,
+		poweredSystems,
 		filter,
 	])
 

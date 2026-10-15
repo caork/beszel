@@ -268,6 +268,10 @@ msgid "Average number of I/O operations waiting to be serviced"
 msgstr "Average number of I/O operations waiting to be serviced"
 
 #: src/components/routes/system/charts/gpu-charts.tsx
+msgid "Average power consumption of CPU packages"
+msgstr "Average power consumption of CPU packages"
+
+#: src/components/routes/system/charts/gpu-charts.tsx
 msgid "Average power consumption of GPUs"
 msgstr "Average power consumption of GPUs"
 
@@ -660,6 +664,10 @@ msgstr "CPU I/O Wait"
 #: src/components/systemd-table/systemd-table-columns.tsx
 msgid "CPU Peak"
 msgstr "CPU Peak"
+
+#: src/components/routes/system/charts/gpu-charts.tsx
+msgid "CPU Power Draw"
+msgstr "CPU Power Draw"
 
 #: src/lib/alerts.ts
 msgid "CPU Steal Time"
@@ -1322,6 +1330,10 @@ msgstr "Max 1 min"
 msgid "Max 1h"
 msgstr "Max 1h"
 
+#: src/components/systems-table/systems-table.tsx
+msgid "Measured CPU package and GPU power across {poweredSystems} systems. Excludes PSU loss, drives and other components."
+msgstr "Measured CPU package and GPU power across {poweredSystems} systems. Excludes PSU loss, drives and other components."
+
 #: src/components/containers-table/containers-table-columns.tsx
 #: src/components/routes/system/info-bar.tsx
 #: src/components/systemd-table/systemd-table-columns.tsx
@@ -1696,6 +1708,11 @@ msgstr "Port"
 msgctxt "Container ports"
 msgid "Ports"
 msgstr "Ports"
+
+#. Short label for measured power draw in systems table
+#: src/components/systems-table/systems-table-columns.tsx
+msgid "Power"
+msgstr "Power"
 
 #. Power On Time
 #: src/components/routes/system/smart-table.tsx
@@ -2226,6 +2243,10 @@ msgstr "Total data received for each interface"
 #: src/components/routes/system/network-sheet.tsx
 msgid "Total data sent for each interface"
 msgstr "Total data sent for each interface"
+
+#: src/components/systems-table/systems-table.tsx
+msgid "Total power"
+msgstr "Total power"
 
 #: src/components/routes/system/disk-io-sheet.tsx
 msgctxt "Disk I/O"

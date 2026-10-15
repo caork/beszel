@@ -273,6 +273,10 @@ msgid "Average number of I/O operations waiting to be serviced"
 msgstr "Среден брой I/O операции, чакащи обслужване"
 
 #: src/components/routes/system/charts/gpu-charts.tsx
+msgid "Average power consumption of CPU packages"
+msgstr ""
+
+#: src/components/routes/system/charts/gpu-charts.tsx
 msgid "Average power consumption of GPUs"
 msgstr "Средна консумация на ток от графични карти"
 
@@ -665,6 +669,10 @@ msgstr "Изчакване на CPU за вход/изход (IOWait)"
 #: src/components/systemd-table/systemd-table-columns.tsx
 msgid "CPU Peak"
 msgstr "Пик на CPU"
+
+#: src/components/routes/system/charts/gpu-charts.tsx
+msgid "CPU Power Draw"
+msgstr ""
 
 #: src/lib/alerts.ts
 msgid "CPU Steal Time"
@@ -1327,6 +1335,10 @@ msgstr "Максимум 1 минута"
 msgid "Max 1h"
 msgstr "Макс. 1h"
 
+#: src/components/systems-table/systems-table.tsx
+msgid "Measured CPU package and GPU power across {poweredSystems} systems. Excludes PSU loss, drives and other components."
+msgstr ""
+
 #: src/components/containers-table/containers-table-columns.tsx
 #: src/components/routes/system/info-bar.tsx
 #: src/components/systemd-table/systemd-table-columns.tsx
@@ -1701,6 +1713,11 @@ msgstr "Порт"
 msgctxt "Container ports"
 msgid "Ports"
 msgstr "Портове"
+
+#. Short label for measured power draw in systems table
+#: src/components/systems-table/systems-table-columns.tsx
+msgid "Power"
+msgstr ""
 
 #. Power On Time
 #: src/components/routes/system/smart-table.tsx
@@ -2231,6 +2248,10 @@ msgstr "Общо получени данни за всеки интерфейс"
 #: src/components/routes/system/network-sheet.tsx
 msgid "Total data sent for each interface"
 msgstr "Общо изпратени данни за всеки интерфейс"
+
+#: src/components/systems-table/systems-table.tsx
+msgid "Total power"
+msgstr ""
 
 #: src/components/routes/system/disk-io-sheet.tsx
 msgctxt "Disk I/O"
